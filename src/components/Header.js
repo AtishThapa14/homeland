@@ -18,7 +18,7 @@ const Header = () => {
   };
 
   return (
-    <header className='py-6 mb-12 border-b'>
+    <header className='py-6 mb-12 border-b border-orange-500'> {/* Added border-orange-500 class here */}
       <div className='container mx-auto flex justify-between items-center'>
         {/* logo */}
         <Link to='/'>

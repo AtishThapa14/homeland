@@ -21,7 +21,7 @@ const HouseList = () => {
   }
 
   if(houses.length < 1){
-    return <div className='text-center text-3xl lg:text-[30px] font-semibold leading-none mb-6 text-gray-400 mt-48'>Sorry, nothing found. Please search again!!</div>
+    return <div className='text-center text-3xl lg:text-[30px] font-semibold leading-none mb-6 text-gray-400 mt-48'>Sorry, nothing found. Please search again with different options!!</div>
   }
 
   return(

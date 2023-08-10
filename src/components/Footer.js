@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; // Import the Link component
 
 const Footer = () => {
   return (
@@ -13,10 +14,10 @@ const Footer = () => {
         </div>
         <div className="flex flex-col items-center">
           <h3 className="text-xl font-semibold mb-2">Quick Links</h3>
-          <a href="#" className="text-orange-700 hover:text-violet-700 transition duration-300">Home</a>
-          <a href="#" className="text-orange-700 hover:text-violet-700 transition duration-300">Properties</a>
-          <a href="#" className="text-orange-700 hover:text-violet-700 transition duration-300">About Us</a>
-          <a href="#" className="text-orange-700 hover:text-violet-700 transition duration-300">Contact Us</a>
+          <Link to="/" className="text-orange-700 hover:text-violet-700 transition duration-300">Home</Link>
+          <Link to="/house" className="text-orange-700 hover:text-violet-700 transition duration-300">Properties</Link> {/* Updated link */}
+          <Link to="/about" className="text-orange-700 hover:text-violet-700 transition duration-300">About Us</Link>
+          <Link to="/contact" className="text-orange-700 hover:text-violet-700 transition duration-300">Contact Us</Link>
         </div>
         <div className="flex flex-col items-center">
           <h3 className="text-xl font-semibold mb-2">Social Media</h3>
