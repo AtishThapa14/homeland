@@ -1,39 +1,87 @@
-import React from "react";
-import { FaGoogle, FaApple, FaPhone } from "react-icons/fa";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
-const SignupModal = ({ handleSignupSubmit, setShowSignupModal }) => {
+import InputControl from "../InputControl/InputControl";
+import { auth } from "../../utils/firebase";
+
+import styles from "./Signup.module.css";
+
+function Signup() {
+  const navigate = useNavigate();
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    pass: "",
+  });
+  const [errorMsg, setErrorMsg] = useState("");
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+
+  const handleSubmission = () => {
+    if (!values.name || !values.email || !values.pass) {
+      setErrorMsg("Fill all fields");
+      return;
+    }
+    setErrorMsg("");
+
+    setSubmitButtonDisabled(true);
+    createUserWithEmailAndPassword(auth, values.email, values.pass)
+      .then(async (res) => {
+        setSubmitButtonDisabled(false);
+        const user = res.user;
+        await updateProfile(user, {
+          displayName: values.name,
+        });
+        navigate("/");
+      })
+      .catch((err) => {
+        setSubmitButtonDisabled(false);
+        setErrorMsg(err.message);
+      });
+  };
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg min-w-screen">
-        <h2 className="text-2xl font-semibold mb-4">Sign Up</h2>
-        <p className="text-gray-600 mb-2">Choose a signup method:</p>
-        <button
-          className="bg-orange-700 hover:bg-violet-700 text-white px-4 py-2 rounded-lg mb-2 flex items-center gap-2"
-          onClick={handleSignupSubmit}
-        >
-          <FaGoogle /> Sign up with Gmail
-        </button>
-        <button
-          className="bg-orange-700 hover:bg-violet-700 text-white px-4 py-2 rounded-lg mb-2 flex items-center gap-2"
-          onClick={handleSignupSubmit}
-        >
-          <FaApple /> Sign up with Apple ID
-        </button>
-        <button
-          className="bg-orange-700 hover:bg-violet-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-          onClick={handleSignupSubmit}
-        >
-          <FaPhone /> Sign up with Phone Number
-        </button>
-        <button
-          className="text-sm text-gray-600 mt-4"
-          onClick={() => setShowSignupModal(false)}
-        >
-          Close
-        </button>
+    <div className={styles.container}>
+      <div className={styles.innerBox}>
+        <h1 className={styles.heading}>Signup</h1>
+
+        <InputControl
+          label="Name"
+          placeholder="Enter your name"
+          onChange={(event) =>
+            setValues((prev) => ({ ...prev, name: event.target.value }))
+          }
+        />
+        <InputControl
+          label="Email"
+          placeholder="Enter email address"
+          onChange={(event) =>
+            setValues((prev) => ({ ...prev, email: event.target.value }))
+          }
+        />
+        <InputControl
+          label="Password"
+          placeholder="Enter password"
+          onChange={(event) =>
+            setValues((prev) => ({ ...prev, pass: event.target.value }))
+          }
+        />
+
+        <div className={styles.footer}>
+          <b className={styles.error}>{errorMsg}</b>
+          <button onClick={handleSubmission} disabled={submitButtonDisabled}>
+            Signup
+          </button>
+          <p>
+            Already have an account?{" "}
+            <span>
+              <Link to="/login">Login</Link>
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );
-};
+}
 
-export default SignupModal;
+export default Signup;

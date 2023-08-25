@@ -19,6 +19,14 @@ const Header = () => {
     console.log("Signup form submitted.");
     setShowSignupModal(false);
   };
+  const signup = () => {
+    setShowLoginModal(true);
+    setShowLoginModal(false);
+  };
+  const login = () => {
+    setShowLoginModal(false);
+    setShowLoginModal(true);
+  };
 
   return (
     <header className="py-6 mb-12 border-b border-orange-500">
@@ -36,18 +44,19 @@ const Header = () => {
             Contact
           </Link>
           <a
-            href="#"
+            href="/login"
             className="hover:text-violet-900 transition"
-            onClick={() => setShowLoginModal(true)}
+            onClick={signup}
           >
             Log in
           </a>
-          <button
-            className="bg-orange-700 hover:bg-violet-800 text-white px-4 py-3 rounded-lg transition"
-            onClick={() => setShowSignupModal(true)}
+          <a
+            href="/signup"
+            className=" bg-orange-700 hover:bg-violet-800 text-white px-4 py-3 rounded-lg transition hover:text-violet-900 transition"
+            onClick={login}
           >
             Sign up
-          </button>
+          </a>
         </nav>
       </div>
       {/* Login Modal */}
@@ -57,7 +66,6 @@ const Header = () => {
           setShowLoginModal={setShowLoginModal}
         />
       )}
-
       {/* Signup Modal */}
       {showSignupModal && (
         <SignupModal

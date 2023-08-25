@@ -7,7 +7,7 @@ import PropertyDetails from "./pages/PropertyDetails";
 import AboutUs from "./components/AboutUs"; // Import the AboutUs component
 import Contact from "./components/Contact"; // Import the Contact component
 import LoginModal from "./components/Login/LoginModal";
-import SignupModal from "./components/SignUp/SignupModal";
+import Signup from "./components/SignUp/SignupModal";
 
 const App = () => {
   return (
@@ -20,8 +20,9 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />{" "}
         {/* Add Contact route */}
         <Route path="/login" element={<LoginModal />} />
-        <Route path="/signup" element={<SignupModal />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
+
       <Footer />
     </div>
   );
