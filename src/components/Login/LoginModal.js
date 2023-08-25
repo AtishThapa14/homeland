@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 
 import InputControl from "../InputControl/InputControl";
 import { auth } from "../../utils/firebase";
@@ -27,12 +27,13 @@ function LoginModal() {
     signInWithEmailAndPassword(auth, values.email, values.pass)
       .then(async (res) => {
         setSubmitButtonDisabled(false);
+        console.log(res.user);
 
         navigate("/");
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
-        setErrorMsg(err.message);
+        console.log(err.message);
       });
   };
   return (
@@ -61,9 +62,9 @@ function LoginModal() {
             Login
           </button>
           <p>
-            Already have an account?{" "}
-            <span>
-              <Link to="/signup">Sign up</Link>
+            Don't have an account ? {"      "}
+            <span style={{ marginLeft: "10px" }}>
+              <Link to="/signup"> Sign up</Link>
             </span>
           </p>
         </div>

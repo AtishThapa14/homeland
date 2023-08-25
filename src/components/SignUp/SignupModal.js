@@ -36,7 +36,7 @@ function Signup() {
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
-        setErrorMsg(err.message);
+        console.log(err.message);
       });
   };
 
